@@ -1,0 +1,36 @@
+version: '3'
+services:
+  frontend:
+    container_name: NAME1
+    restart: always
+    ports:
+      - "3000:3000"
+    image: REGISTRY/REPOSITORY1:VERSION1
+    environment:
+      PRODUCTS_SERVICE: NAME2
+      SHOPPING_CART_SERVICE: NAME3
+    networks:
+      - diosito
+    depends_on:
+      - products
+      - shopping
+  products:
+    container_name: NAME2
+    restart: always
+    ports:
+      - "3001:3001"
+    image: REGISTRY/REPOSITORY2:VERSION2
+    networks:
+      - diosito 
+  shopping:
+    container_name: NAME3
+    restart: always
+    ports:
+      - "3002:3002"
+    image: REGISTRY/REPOSITORY3:VERSION3
+    networks:
+      - diosito
+
+networks:
+  diosito:
+    driver: bridge
